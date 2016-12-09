@@ -129,5 +129,42 @@ namespace Salon.Objects
 
       return allStylists;
     }
+
+    public static Stylist Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", conn);
+      SqlParameter sytlistIdParameter = new SqlParameter();
+      sytlistIdParameter.ParameterName = "@StylistId";
+      sytlistIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(sytlistIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundStylistId = 0;
+      int foundStylistPhone = 0;
+      string foundStylistName = null;
+      string foundStylistHours = null;
+      while(rdr.Read())
+      {
+        foundStylistId = rdr.GetInt32(0);
+        foundStylistName = rdr.GetString(1);
+        foundStylistHours = rdr.GetString(2);
+        foundStylistPhone = rdr.GetInt32(3);
+      }
+      Stylist foundStylist = new Stylist(foundStylistName, foundStylistHours, foundStylistPhone, foundStylistId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundStylist;
+    }
   }
 }
