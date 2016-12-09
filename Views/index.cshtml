@@ -7,32 +7,35 @@
   <body>
     <h1>Welcome to the Hair Salon!</h1>
     <br>
-    <h3>Here are the stylists at the salon! Add new stylists below. Click the buttons to update stylist info or view clients:</h3>
-    <br>
+    <h2>Here are the stylists at the salon!</h2>
+    <h4> Add new stylists below. Click the buttons to update stylist info, view current clients or add a new client:</h4>
     @foreach(var stylist in Model)
     {
-      <h3>Name: @stylist.GetName()</h3>
-      <ul>
-        <li>Hours: @stylist.GetHours()</li>
-        <li>Phone: @stylist.GetPhone()</li>
-      </ul>
-      <br>
-      <button type="button"><a href="/stylist/update/@stylist.GetId()">Update Info</a></button>
-      <button type="button"><a href="/clients/@stylist.GetId()">See Clients</a></button>
-      <br>
+      <div class="stylists">
+        <h3>Name: @stylist.GetName()</h3>
+        <ul>
+          <li>Hours: @stylist.GetHours()</li>
+          <li>Phone: @stylist.GetPhone()</li>
+        </ul>
+        <br>
+        <button type="button"><a href="/stylist/update/@stylist.GetId()">Update Info</a></button>
+        <button type="button"><a href="/clients/@stylist.GetId()">See Clients</a></button>
+        <button type="button"><a href="/clients/add/@stylist.GetId()">Add Client</a></button>
+        <button type="button"><a href="/stylist/delete/@stylist.GetId()">Delete Stylist</a></button>
+      </div>
     }
     <h3>Enter new Stylist:</h3>
     <form action="/stylist-added" method="post">
       <div>
-        <label for="name">Name</label>
+        <label for="name">Name:</label>
         <input type="text" name="name">
       </div>
       <div>
-        <label for="hours">Hours</label>
+        <label for="hours">Hours:</label>
         <input type="text" name="hours">
       </div>
       <div>
-        <label for="phone">Phone</label>
+        <label for="phone">Phone:</label>
         <input type="text" name="phone">
       </div>
       <button type="submit">Submit</button>

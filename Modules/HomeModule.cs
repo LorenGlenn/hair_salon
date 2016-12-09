@@ -24,6 +24,11 @@ namespace Salon
         return View["client.cshtml", foundClient];
       };
 
+      Get["/clients/add/{id}"] = parameters => {
+        int model = parameters.id;
+        return View["add-client.cshtml", model];
+      };
+
       Post["/stylist-added"] =_=>
       {
         string name = Request.Form["name"];
@@ -33,6 +38,18 @@ namespace Salon
         newStylist.Save();
         return View["stylist-added.cshtml", newStylist];
       };
+
+      Post["/client-added/{id}"] = parameters =>
+      {
+        string name = Request.Form["name"];
+        string hair_color = Request.Form["hair"];
+        int phone = Request.Form["phone"];
+        Client newClient = new Client(name, hair_color, phone, parameters.id);
+        newClient.Save();
+        return View["client-added.cshtml", newClient];
+      };
+
+
     }
   }
 }
