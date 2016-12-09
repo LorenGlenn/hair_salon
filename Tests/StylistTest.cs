@@ -26,6 +26,19 @@ namespace StylistTest
       Assert.Equal(testList, result);
     }
 
+    [Fact]
+    public void Test1_CheckUpdateStylistInfo_True()
+    {
+      Stylist testStylist = new Stylist("Kyle", "3-9", 5555555);
+      testStylist.Save();
+      List<Stylist> result = Stylist.GetAll();
+      Stylist toUpdate = result[0];
+      int id = toUpdate.GetId();
+      toUpdate.SetName("Mark", id);
+      Stylist updated = Stylist.Find(id);
+      Assert.Equal(updated.GetName(), "Mark");
+    }
+
     public void Dispose()
     {
       Stylist.DeleteAll();
