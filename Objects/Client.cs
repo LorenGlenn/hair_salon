@@ -129,5 +129,42 @@ namespace Salon.Objects
 
       return allClients;
     }
+
+    public static Client Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @ClientId;", conn);
+      SqlParameter clientIdParameter = new SqlParameter();
+      clientIdParameter.ParameterName = "@ClientId";
+      clientIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(clientIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundClientId = 0;
+      int foundClientPhone = 0;
+      string foundClientName = null;
+      string foundClientHair = null;
+      while(rdr.Read())
+      {
+        foundClientId = rdr.GetInt32(0);
+        foundClientName = rdr.GetString(1);
+        foundClientHair = rdr.GetString(2);
+        foundClientPhone = rdr.GetInt32(3);
+      }
+      Client foundClient = new Client(foundClientName, foundClientHair, foundClientPhone, foundClientId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+      return foundClient;
+    }
   }
 }
