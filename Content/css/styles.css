@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+  background-color: lightblue;
+}
+
+.deleteButton {
+  margin-top: 5px;
+}
+
+button {
+  color: white;
+}
+
+a:visited, a {
+  color: white;
+}
+
+.stylists {
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  background-color: white;
+}
+
+.client {
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  background-color: white;
+}
+
+.client-list a{
+  color: black;
+}
+
+ul {
+  list-style: none;
+}

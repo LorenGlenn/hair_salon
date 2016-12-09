@@ -2,21 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/styles.css">
     <title>Stylist</title>
   </head>
-  <h3>Click a client name to see more information:</h3>
-  <body>
-    @foreach(var client in Model)
-    {
-      Clients:
-        <ul>
-          @foreach(var customer in Model)
+  <div class="container">
+    <div class="client">
+
+        <h3>Click a client to see more information:</h3>
+        <body>
+          @foreach(var client in Model)
           {
-            <li><a href="/client/@customer.GetId()">@customer.GetName()</a></li>
+            Clients:
+            <ul>
+              @foreach(var customer in Model)
+              {
+                <li><h3>@customer.GetName()</h3></li>
+                <button type="button" class="btn btn-info"><a href="/client/@customer.GetId()">Info</a></button>
+              }
+            </ul>
+            <br>
           }
-        </ul>
-      <br>
-    }
-    <button type="button"><a href="/">Home</a></button>
+          <button type="button"  class="btn btn-success"><a href="/">Home</a></button>
+      </div>
+    </div>
   </body>
 </html>

@@ -2,23 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/styles.css">
     <title>Hair Salon</title>
   </head>
   <body>
-    <h3>Here is more information on @Model.GetName():</h3>
-    <br>
-      Name: @Model.GetName()
-      <ul>
-        <li>Hair Color: @Model.GetHairColor()</li>
-        <li>Phone: @Model.GetPhone()</li>
-      </ul>
-      <br>
-      <button type="button"><a href="/client/update/@Model.GetId()">Update Info</a></button>
-      <form action="/client/delete/@Model.GetId()" method="post">
-        <button type="submit">Delete Client</button>
-      </form>
-      <button type="button"><a href="/">Go Home</a></button>
-      <br>
+    <div class="container">
+      <div class="client-list">
+
+          <h3>Here is more information on @Model.GetName():</h3>
+          <br>
+          Name: @Model.GetName()
+          <ul>
+            <li>Hair Color: @Model.GetHairColor()</li>
+            <li>Phone: @Model.GetPhone()</li>
+          </ul>
+          <br>
+          <button type="button" class="btn btn-success"><a href="/client/update/@Model.GetId()">Update Info</a></button>
+          <button type="button" class="btn btn-success"><a href="/">Go Home</a></button>
+          <form action="/client/delete/@Model.GetId()" method="post">
+            <button type="submit" class="btn btn-danger">Delete Client</button>
+          </form>
+          <br>
+        </div>
+      </div>
 
   </body>
 </html>
