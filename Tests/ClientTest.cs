@@ -29,10 +29,15 @@ namespace ClientTest
     [Fact]
     public void Test1_ChecksClientAssociatedWithStylist_True()
     {
-      Stylist newStylist = new Stylist("Kyle", "3-9", 5555555, 1);
-      Client newClient = new Client("Cindy", )
+      Stylist newStylist = new Stylist("Kyle", "3-9", 5555555);
       newStylist.Save();
-
+      List<Stylist> allStylists = Stylist.GetAll();
+      int stylistId = allStylists[0].GetId();
+      Client newClient = new Client("Cindy", "Blue", 8888888, stylistId, 3);
+      newClient.Save();
+      List<Client> allClients = Client.GetAll();
+      int clientStylistId = allClients[0].GetStylistId();
+      Assert.Equal(stylistId, clientStylistId);
     }
 
     public void Dispose()
