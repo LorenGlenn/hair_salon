@@ -60,7 +60,7 @@ namespace Salon.Objects
   SqlConnection conn = DB.Connection();
   conn.Open();
 
-  SqlCommand cmd = new SqlCommand("INSERT INTO hair_salon (name, hours, phone) OUTPUT INSERTED.id VALUES (@StylistName, @StylistHours, @StylistPhone);", conn);
+  SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, hours, phone) OUTPUT INSERTED.id VALUES (@StylistName, @StylistHours, @StylistPhone);", conn);
 
   SqlParameter nameParameter = new SqlParameter();
   nameParameter.ParameterName = "@StylistName";
@@ -92,3 +92,35 @@ namespace Salon.Objects
     conn.Close();
   }
 }
+
+public static List<Stylist> GetAll()
+    {
+      List<Stylist> allStylists = new List<Stylist>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int stylistId = rdr.GetInt32(0);
+        string stylistName = rdr.GetString(1);
+        string stylistHours = rdr.GetString(2);
+        int stylistPhone = rdr.GetInt32(3);
+        Stylist newStylist = new Stylist(stylistName, stylistHours, stylistPhone, stylistId);
+        allStylists.Add(newStylist);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return allStylists;
+    }
