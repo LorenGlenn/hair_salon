@@ -141,14 +141,20 @@ namespace Salon.Objects
       }
     }
 
-    public static List<Client> GetAll()
+    public static List<Client> GetAll(int newStylistId)
     {
       List<Client> allClients = new List<Client>{};
 
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM clients;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE stylist_id = @StylistId;", conn);
+
+      SqlParameter stylistParameter = new SqlParameter();
+      stylistParameter.ParameterName = "@StylistId";
+      stylistParameter.Value = newStylistId;
+
+      cmd.Parameters.Add(stylistParameter);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
