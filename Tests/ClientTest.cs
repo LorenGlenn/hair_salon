@@ -40,6 +40,25 @@ namespace ClientTest
       Assert.Equal(stylistId, clientStylistId);
     }
 
+    [Fact]
+    public void Test2_ChecksMultipleClientsAssociatedWithStylist_True()
+    {
+      Stylist newStylist = new Stylist("Kyle", "3-9", 5555555);
+      newStylist.Save();
+      List<Stylist> allStylists = Stylist.GetAll();
+      int stylistId = allStylists[0].GetId();
+      Client newClient = new Client("Cindy", "Blue", 8888888, stylistId, 3);
+      Client otherNewClient = new Client("Dan", "Black", 8988888, stylistId, 4);
+      newClient.Save();
+      otherNewClient.Save();
+      List<Client> allClients = Client.GetAll();
+      int clientStylistIdOne = allClients[0].GetStylistId();
+      int clientStylistIdTwo = allClients[1].GetStylistId();
+      int stylistIdFinal = (stylistId + stylistId);
+      int clientStylistIdFinal = (clientStylistIdOne + clientStylistIdTwo);
+      Assert.Equal(stylistIdFinal, clientStylistIdFinal);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();
