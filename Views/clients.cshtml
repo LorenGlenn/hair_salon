@@ -10,9 +10,9 @@
     {
       Clients:
         <ul>
-          @foreach(var client in Model["clients"])
+          @foreach(var customer in Model)
           {
-            <li><a href="/client/@client.GetId()">@client.GetName()</a></li>
+            <li><a href="/client/@customer.GetId()">@customer.GetName()</a></li>
           }
         </ul>
       <br>

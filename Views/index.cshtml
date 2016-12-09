@@ -11,13 +11,13 @@
     <br>
     @foreach(var stylist in Model)
     {
-      Name: @stylist.GetName()
+      <h3>Name: @stylist.GetName()</h3>
       <ul>
         <li>Hours: @stylist.GetHours()</li>
         <li>Phone: @stylist.GetPhone()</li>
       </ul>
       <br>
-      <button type="button"><a href="/stylist/@stylist.GetId()">Update Info</a></button>
+      <button type="button"><a href="/stylist/update/@stylist.GetId()">Update Info</a></button>
       <button type="button"><a href="/clients/@stylist.GetId()">See Clients</a></button>
       <br>
     }
