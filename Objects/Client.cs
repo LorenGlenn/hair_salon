@@ -59,5 +59,75 @@ namespace Salon.Objects
     {
       return _id;
     }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, hair_color, phone) OUTPUT INSERTED.id VALUES (@ClientName, @ClientHairColor, @ClientPhone);", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@ClientName";
+      nameParameter.Value = this.GetName();
+
+      SqlParameter hairParameter = new SqlParameter();
+      hairParameter.ParameterName = "@ClientHairColor";
+      hairParameter.Value = this.GetHairColor();
+
+      SqlParameter phoneParameter = new SqlParameter();
+      phoneParameter.ParameterName = "@ClientPhone";
+      phoneParameter.Value = this.GetPhone();
+
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(hairParameter);
+      cmd.Parameters.Add(phoneParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static List<Client> GetAll()
+    {
+      List<Client> allClients = new List<Client>{};
+
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM clients;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        int clientId = rdr.GetInt32(0);
+        string clientName = rdr.GetString(1);
+        string clientHairColor = rdr.GetString(2);
+        int clientPhone = rdr.GetInt32(3);
+        Client newClient = new Client(clientName, clientHairColor, clientPhone, clientId);
+        allClients.Add(newClient);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+      return allClients;
+    }
   }
 }

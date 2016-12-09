@@ -61,44 +61,44 @@ namespace Salon.Objects
     }
 
     public void Save()
-{
-  SqlConnection conn = DB.Connection();
-  conn.Open();
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
 
-  SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, hours, phone) OUTPUT INSERTED.id VALUES (@StylistName, @StylistHours, @StylistPhone);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name, hours, phone) OUTPUT INSERTED.id VALUES (@StylistName, @StylistHours, @StylistPhone);", conn);
 
-  SqlParameter nameParameter = new SqlParameter();
-  nameParameter.ParameterName = "@StylistName";
-  nameParameter.Value = this.GetName();
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@StylistName";
+      nameParameter.Value = this.GetName();
 
-  SqlParameter hoursParameter = new SqlParameter();
-  hoursParameter.ParameterName = "@StylistHours";
-  hoursParameter.Value = this.GetHours();
+      SqlParameter hoursParameter = new SqlParameter();
+      hoursParameter.ParameterName = "@StylistHours";
+      hoursParameter.Value = this.GetHours();
 
-  SqlParameter phoneParameter = new SqlParameter();
-  phoneParameter.ParameterName = "@StylistPhone";
-  phoneParameter.Value = this.GetPhone();
+      SqlParameter phoneParameter = new SqlParameter();
+      phoneParameter.ParameterName = "@StylistPhone";
+      phoneParameter.Value = this.GetPhone();
 
-  cmd.Parameters.Add(nameParameter);
-  cmd.Parameters.Add(hoursParameter);
-  cmd.Parameters.Add(phoneParameter);
-  SqlDataReader rdr = cmd.ExecuteReader();
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(hoursParameter);
+      cmd.Parameters.Add(phoneParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
 
-  while(rdr.Read())
-  {
-    this._id = rdr.GetInt32(0);
-  }
-  if (rdr != null)
-  {
-    rdr.Close();
-  }
-  if (conn != null)
-  {
-    conn.Close();
-  }
-}
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
 
-public static List<Stylist> GetAll()
+    public static List<Stylist> GetAll()
     {
       List<Stylist> allStylists = new List<Stylist>{};
 
