@@ -18,12 +18,21 @@ namespace ClientTest
     [Fact]
     public void Test_SavesToDatabase()
     {
-      Client testClient = new Client("Kyle", "3-9", 5555555, 1);
+      Client testClient = new Client("Cindy", "Red", 5555555, 1);
       testClient.Save();
       List<Client> result = Client.GetAll();
       List<Client> testList = new List<Client>{testClient};
 
       Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test1_ChecksClientAssociatedWithStylist_True()
+    {
+      Stylist newStylist = new Stylist("Kyle", "3-9", 5555555, 1);
+      Client newClient = new Client("Cindy", )
+      newStylist.Save();
+
     }
 
     public void Dispose()

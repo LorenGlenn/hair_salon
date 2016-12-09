@@ -10,13 +10,15 @@ namespace Salon.Objects
     private string _name;
     private string _hair_color;
     private int _phone;
+    private int _stylist_id;
 
-    public Client(string name, string hair, int phone, int id = 0)
+    public Client(string name, string hair, int phone, int stylistId, int id = 0)
     {
       _id = id;
       _name = name;
       _hair_color = hair;
       _phone = phone;
+      _stylist_id = stylistId;
     }
 
     public override bool Equals(System.Object otherClient)
@@ -31,7 +33,8 @@ namespace Salon.Objects
         bool nameEquality = (this.GetName() == newClient.GetName());
         bool colorEquality = (this.GetHairColor() == newClient.GetHairColor());
         bool phoneEquality = (this.GetPhone() == newClient.GetPhone());
-        return (nameEquality && colorEquality && phoneEquality);
+        bool stylistEquality = (this.GetStylistId() == newClient.GetStylistId());
+        return (nameEquality && colorEquality && phoneEquality && stylistEquality);
       }
     }
 
@@ -55,6 +58,11 @@ namespace Salon.Objects
       return _phone;
     }
 
+    public int GetStylistId()
+    {
+      return _stylist_id;
+    }
+
     public int GetId()
     {
       return _id;
@@ -65,7 +73,7 @@ namespace Salon.Objects
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, hair_color, phone) OUTPUT INSERTED.id VALUES (@ClientName, @ClientHairColor, @ClientPhone);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, hair_color, phone, stylist_id) OUTPUT INSERTED.id VALUES (@ClientName, @ClientHairColor, @ClientPhone, @StylistId);", conn);
 
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@ClientName";
@@ -79,9 +87,14 @@ namespace Salon.Objects
       phoneParameter.ParameterName = "@ClientPhone";
       phoneParameter.Value = this.GetPhone();
 
+      SqlParameter stylistParameter = new SqlParameter();
+      stylistParameter.ParameterName = "@StylistId";
+      stylistParameter.Value = this.GetStylistId();
+
       cmd.Parameters.Add(nameParameter);
       cmd.Parameters.Add(hairParameter);
       cmd.Parameters.Add(phoneParameter);
+      cmd.Parameters.Add(stylistParameter);
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
@@ -114,7 +127,8 @@ namespace Salon.Objects
         string clientName = rdr.GetString(1);
         string clientHairColor = rdr.GetString(2);
         int clientPhone = rdr.GetInt32(3);
-        Client newClient = new Client(clientName, clientHairColor, clientPhone, clientId);
+        int stylistId = rdr.GetInt32(4);
+        Client newClient = new Client(clientName, clientHairColor, clientPhone, stylistId, clientId);
         allClients.Add(newClient);
       }
 
@@ -146,14 +160,16 @@ namespace Salon.Objects
       int foundClientPhone = 0;
       string foundClientName = null;
       string foundClientHair = null;
+      int foundClientStylist = 0;
       while(rdr.Read())
       {
         foundClientId = rdr.GetInt32(0);
         foundClientName = rdr.GetString(1);
         foundClientHair = rdr.GetString(2);
         foundClientPhone = rdr.GetInt32(3);
+        foundClientStylist = rdr.GetInt32(4);
       }
-      Client foundClient = new Client(foundClientName, foundClientHair, foundClientPhone, foundClientId);
+      Client foundClient = new Client(foundClientName, foundClientHair, foundClientPhone, foundClientStylist, foundClientId);
 
       if (rdr != null)
       {
