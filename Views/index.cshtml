@@ -21,7 +21,9 @@
         <button type="button"><a href="/stylist/update/@stylist.GetId()">Update Info</a></button>
         <button type="button"><a href="/clients/@stylist.GetId()">See Clients</a></button>
         <button type="button"><a href="/clients/add/@stylist.GetId()">Add Client</a></button>
-        <button type="button"><a href="/stylist/delete/@stylist.GetId()">Delete Stylist</a></button>
+        <form action="/stylist/delete/@stylist.GetId()" method="post">
+          <button type="submit">Delete Stylist</button>
+        </form>
       </div>
     }
     <h3>Enter new Stylist:</h3>
