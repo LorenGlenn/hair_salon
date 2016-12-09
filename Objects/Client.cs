@@ -40,17 +40,24 @@ namespace Salon.Objects
      return this.GetName().GetHashCode();
     }
 
+    public string GetName()
+    {
+      return _name;
+    }
+
     public string GetHairColor()
     {
       return _hair_color;
     }
 
-    public string GetPhone()
+    public int GetPhone()
     {
       return _phone;
     }
 
-    public string GetId()
+    public int GetId()
     {
       return _id;
     }
+  }
+}

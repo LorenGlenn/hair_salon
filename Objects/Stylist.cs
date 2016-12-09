@@ -11,7 +11,7 @@ namespace Salon.Objects
     private string _hours;
     private int _phone;
 
-    public Stylist(string name, string _hours, int phone, int id = 0)
+    public Stylist(string name, string hours, int phone, int id = 0)
     {
       _id = id;
       _name = name;
@@ -40,17 +40,22 @@ namespace Salon.Objects
      return this.GetName().GetHashCode();
     }
 
+    public string GetName()
+    {
+      return _name;
+    }
+
     public string GetHours()
     {
       return _hours;
     }
 
-    public string GetPhone()
+    public int GetPhone()
     {
       return _phone;
     }
 
-    public string GetId()
+    public int GetId()
     {
       return _id;
     }
@@ -124,3 +129,5 @@ public static List<Stylist> GetAll()
 
       return allStylists;
     }
+  }
+}
