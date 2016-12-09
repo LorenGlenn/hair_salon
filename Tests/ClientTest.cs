@@ -20,7 +20,7 @@
 //     {
 //       Client testClient = new Client("Cindy", "Red", 5555555, 1);
 //       testClient.Save();
-//       List<Client> result = Client.GetAll();
+//       List<Client> result = Client.GetAll(1);
 //       List<Client> testList = new List<Client>{testClient};
 //
 //       Assert.Equal(testList, result);
@@ -35,7 +35,7 @@
 //       int stylistId = allStylists[0].GetId();
 //       Client newClient = new Client("Cindy", "Blue", 8888888, stylistId, 3);
 //       newClient.Save();
-//       List<Client> allClients = Client.GetAll();
+//       List<Client> allClients = Client.GetAll(stylistId);
 //       int clientStylistId = allClients[0].GetStylistId();
 //       Assert.Equal(stylistId, clientStylistId);
 //     }
@@ -51,7 +51,7 @@
 //       Client otherNewClient = new Client("Dan", "Black", 8988888, stylistId, 4);
 //       newClient.Save();
 //       otherNewClient.Save();
-//       List<Client> allClients = Client.GetAll();
+//       List<Client> allClients = Client.GetAll(stylistId);
 //       int clientStylistIdOne = allClients[0].GetStylistId();
 //       int clientStylistIdTwo = allClients[1].GetStylistId();
 //       int stylistIdFinal = (stylistId + stylistId);
@@ -60,16 +60,28 @@
 //     }
 //
 //     [Fact]
-//     public void Test1_CheckUpdateClientInfo_True()
+//     public void Test3_CheckUpdateClientInfo_True()
 //     {
 //       Client testClient = new Client("Dan", "Red", 8888888, 1);
 //       testClient.Save();
-//       List<Client> result = Client.GetAll();
+//       List<Client> result = Client.GetAll(1);
 //       Client toUpdate = result[0];
 //       int id = toUpdate.GetId();
-//       toUpdate.SetPhone(5555555, id);
+//       Client.Update("Dan", "Red", 5555555, id);
 //       Client updated = Client.Find(id);
 //       Assert.Equal(updated.GetPhone(), 5555555);
+//     }
+//
+//     [Fact]
+//     public void Test4_CheckDeleteClient_False()
+//     {
+//       Client testClient = new Client("Dan", "Red", 8888888, 1);
+//       testClient.Save();
+//       List<Client> result = Client.GetAll(1);
+//       Client.RemoveAClient(testClient.GetId());
+//       List<Client> deleted = Client.GetAll(1);
+//       bool isEqual = (result == deleted);
+//       Assert.Equal(false, isEqual);
 //     }
 //
 //     public void Dispose()
