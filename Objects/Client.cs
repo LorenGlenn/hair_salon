@@ -68,6 +68,36 @@ namespace Salon.Objects
       return _id;
     }
 
+    public void SetPhone(int newPhone, int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE clients SET phone = @ClientPhone WHERE id = @ClientId;", conn);
+
+      SqlParameter phoneParameter = new SqlParameter();
+      phoneParameter.ParameterName = "@ClientPhone";
+      phoneParameter.Value = newPhone;
+
+      SqlParameter clientIdParameter = new SqlParameter();
+      clientIdParameter.ParameterName = "@ClientId";
+      clientIdParameter.Value = id;
+
+      cmd.Parameters.Add(phoneParameter);
+      cmd.Parameters.Add(clientIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+
+    }
+
     public void Save()
     {
       SqlConnection conn = DB.Connection();
