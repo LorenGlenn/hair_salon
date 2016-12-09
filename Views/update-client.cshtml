@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Update</title>
+  </head>
+  <body>
+
+    <h3>Update Client @Model.GetName():</h3>
+    <form action="/client-updated/@Model.GetId()" method="post">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" name="name" placeholder="@Model.GetName()" required>
+      </div>
+      <div>
+        <label for="hair">Hair Color:</label>
+        <input type="text" name="hair" placeholder="@Model.GetHairColor()" required>
+      </div>
+      <div>
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" placeholder="@Model.GetPhone()" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <button type="button"><a href="/">Go Home</a></button>
+  </body>
+</html>

@@ -60,7 +60,7 @@ namespace Salon.Objects
       return _id;
     }
 
-    public void Update(string newName, string newHours, int newPhone, int id = 0)
+    public static void Update(string newName, string newHours, int newPhone, int id)
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
@@ -77,11 +77,11 @@ namespace Salon.Objects
 
       SqlParameter phoneParameter = new SqlParameter();
       phoneParameter.ParameterName = "@StylistPhone";
-      phoneParameter.Value = newName;
+      phoneParameter.Value = newPhone;
 
       SqlParameter stylistIdParameter = new SqlParameter();
       stylistIdParameter.ParameterName = "@StylistId";
-      stylistIdParameter.Value = this.GetId();
+      stylistIdParameter.Value = id.ToString();
 
       cmd.Parameters.Add(nameParameter);
       cmd.Parameters.Add(hoursParameter);

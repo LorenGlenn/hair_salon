@@ -30,12 +30,12 @@ namespace Salon
       };
 
       Get["/stylist/update/{id}"] = parameters => {
-        int model = parameters.id;
+        Stylist model = Stylist.Find(parameters.id);
         return View["update-stylist.cshtml", model];
       };
 
       Get["/client/update/{id}"] = parameters => {
-        int model = parameters.id;
+        Client model = Client.Find(parameters.id);
         return View["update-client.cshtml", model];
       };
 
@@ -75,6 +75,25 @@ namespace Salon
         return View["client-added.cshtml", newClient];
       };
 
+      Post["/client-updated/{id}"] = parameters =>
+      {
+        string name = Request.Form["name"];
+        string hair_color = Request.Form["hair"];
+        int phone = Request.Form["phone"];
+        Client.Update(name, hair_color, phone, parameters.id);
+        List<Stylist> allStylists = Stylist.GetAll();
+        return View["index.cshtml", allStylists];
+      };
+
+      Post["/stylist-updated/{id}"] = parameters =>
+      {
+        string name = Request.Form["name"];
+        string hours = Request.Form["hours"];
+        int phone = Request.Form["phone"];
+        Stylist.Update(name, hours, phone, parameters.id);
+        List<Stylist> allStylists = Stylist.GetAll();
+        return View["index.cshtml", allStylists];
+      };
 
     }
   }

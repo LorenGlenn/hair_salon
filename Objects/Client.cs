@@ -68,12 +68,20 @@ namespace Salon.Objects
       return _id;
     }
 
-    public void SetPhone(int newPhone, int id)
+    public static void Update(string newName, string newHair, int newPhone, int id)
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("UPDATE clients SET phone = @ClientPhone WHERE id = @ClientId;", conn);
+      SqlCommand cmd = new SqlCommand("UPDATE clients SET name = @ClientName, hair_color = @ClientHair, phone = @ClientPhone WHERE id = @ClientId;", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@ClientName";
+      nameParameter.Value = newName;
+
+      SqlParameter hairParameter = new SqlParameter();
+      hairParameter.ParameterName = "@ClientHair";
+      hairParameter.Value = newHair;
 
       SqlParameter phoneParameter = new SqlParameter();
       phoneParameter.ParameterName = "@ClientPhone";
@@ -81,8 +89,10 @@ namespace Salon.Objects
 
       SqlParameter clientIdParameter = new SqlParameter();
       clientIdParameter.ParameterName = "@ClientId";
-      clientIdParameter.Value = id;
+      clientIdParameter.Value = id.ToString();
 
+      cmd.Parameters.Add(nameParameter);
+      cmd.Parameters.Add(hairParameter);
       cmd.Parameters.Add(phoneParameter);
       cmd.Parameters.Add(clientIdParameter);
       SqlDataReader rdr = cmd.ExecuteReader();
