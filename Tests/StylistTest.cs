@@ -8,7 +8,7 @@ using Salon;
 
 namespace StylistTest
 {
-  public class StylistTest //: IDisposable
+  public class StylistTest : IDisposable
   {
     public StylistTest()
     {
@@ -24,6 +24,11 @@ namespace StylistTest
       List<Stylist> testList = new List<Stylist>{testStylist};
 
       Assert.Equal(testList, result);
+    }
+
+    public void Dispose()
+    {
+      Stylist.DeleteAll();
     }
   }
 }

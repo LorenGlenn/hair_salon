@@ -166,5 +166,14 @@ namespace Salon.Objects
 
       return foundClient;
     }
+
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM clients;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
   }
 }

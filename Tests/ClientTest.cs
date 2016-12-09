@@ -8,7 +8,7 @@ using Salon;
 
 namespace ClientTest
 {
-  public class ClientTest //: IDisposable
+  public class ClientTest : IDisposable
   {
     public ClientTest()
     {
@@ -24,6 +24,11 @@ namespace ClientTest
       List<Client> testList = new List<Client>{testClient};
 
       Assert.Equal(testList, result);
+    }
+
+    public void Dispose()
+    {
+      Client.DeleteAll();
     }
   }
 }
