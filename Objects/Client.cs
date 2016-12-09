@@ -219,6 +219,29 @@ namespace Salon.Objects
       return foundClient;
     }
 
+    public static void RemoveAClient(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM clients WHERE id = @ClientId;", conn);
+      SqlParameter clientIdParameter = new SqlParameter();
+      clientIdParameter.ParameterName = "@ClientId";
+      clientIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(clientIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+
+    }
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();

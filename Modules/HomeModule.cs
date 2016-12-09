@@ -29,6 +29,22 @@ namespace Salon
         return View["add-client.cshtml", model];
       };
 
+      Post["/delete-stylist/{id}"] = parameters =>
+      {
+        Stylist newStylist = Stylist.Find(parameters.id);
+        string name = newStylist.GetName();
+        Stylist.RemoveAStylist(parameters.id);
+        return View["stylist-deleted.cshtml", name];
+      };
+
+      Post["/delete-client/{id}"] = parameters =>
+      {
+        Client newClient = Client.Find(parameters.id);
+        string name = newClient.GetName();
+        Client.RemoveAClient(parameters.id);
+        return View["client-deleted.cshtml", name];
+      };
+
       Post["/stylist-added"] =_=>
       {
         string name = Request.Form["name"];
