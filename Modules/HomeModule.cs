@@ -23,6 +23,16 @@ namespace Salon
         Client foundClient = Client.Find(parameters.id);
         return View["client.cshtml", foundClient];
       };
+
+      Post["/stylist-added"] =_=>
+      {
+        string name = Request.Form["name"];
+        string hours = Request.Form["hours"];
+        int phone = Request.Form["phone"];
+        Stylist newStylist = new Stylist(name, hours, phone);
+        newStylist.Save();
+        return View["stylist-added.cshtml", newStylist];
+      };
     }
   }
 }

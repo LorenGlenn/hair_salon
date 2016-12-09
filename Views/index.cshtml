@@ -7,7 +7,7 @@
   <body>
     <h1>Welcome to the Hair Salon!</h1>
     <br>
-    <h3>Here are the stylists at the salon! Click the buttons to update stylist info or view clients:</h3>
+    <h3>Here are the stylists at the salon! Add new stylists below. Click the buttons to update stylist info or view clients:</h3>
     <br>
     @foreach(var stylist in Model)
     {
@@ -21,6 +21,22 @@
       <button type="button"><a href="/clients/@stylist.GetId()">See Clients</a></button>
       <br>
     }
+    <h3>Enter new Stylist:</h3>
+    <form action="/stylist-added" method="post">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name">
+      </div>
+      <div>
+        <label for="hours">Hours</label>
+        <input type="text" name="hours">
+      </div>
+      <div>
+        <label for="phone">Phone</label>
+        <input type="text" name="phone">
+      </div>
+      <button type="submit">Submit</button>
+    </form>
 
   </body>
 </html>
