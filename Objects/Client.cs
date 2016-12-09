@@ -29,7 +29,7 @@ namespace Salon.Objects
       {
         Client newClient = (Client) otherClient;
         bool nameEquality = (this.GetName() == newClient.GetName());
-        bool colorEquality = (this.GetColor() == newClient.GetColor());
+        bool colorEquality = (this.GetHairColor() == newClient.GetHairColor());
         bool phoneEquality = (this.GetPhone() == newClient.GetPhone());
         return (nameEquality && colorEquality && phoneEquality);
       }
@@ -38,4 +38,19 @@ namespace Salon.Objects
     public override int GetHashCode()
     {
      return this.GetName().GetHashCode();
+    }
+
+    public string GetHairColor()
+    {
+      return _hair_color;
+    }
+
+    public string GetPhone()
+    {
+      return _phone;
+    }
+
+    public string GetId()
+    {
+      return _id;
     }
